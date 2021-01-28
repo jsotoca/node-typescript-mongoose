@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 
 import enviroment from '../config/enviroment';
-
+import routers from '../routers/index.router';
 export default class Server {
     private _app: express.Application;
     private _port: number | string;
@@ -22,7 +22,10 @@ export default class Server {
             .use(bodyParser.json())
             .use(cors())
             .use(helmet())
-            .use(compression())
+            .use(compression());
+
+        this._app
+            .use('/api',routers);
     }
 
     public start(){
